@@ -1,0 +1,23 @@
+.ear {
+    position: absolute;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
+}
+
+.ear-left {
+    left: 40px;
+}
+
+.ear-right {
+    right: 43px;
+}
+
+.twitch-left {
+    transform: rotate(-10deg);
+}
+
+.twitch-right {
+    transform: rotate(10deg);
+}
