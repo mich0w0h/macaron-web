@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CharacterEar from './CharacterEar';
 import './CharacterDisplay.css';
 
@@ -16,25 +16,34 @@ const CharacterDisplay: React.FC = () => {
         }
     }
     
-    let timeoutId: number; // for clearTimeout
+    const timeoutIdRef = useRef<number | null>(null); // for clearTimeout
     
     const blinkWithTimer = async (timer: number): Promise<void> => {
+        console.log('called blinkWithTimer');
         const interval = 1500;
         await blinkEyes(1); // One blink
         await delay(interval); // Delay after one blink
         await blinkEyes(2); // Two blinks
         await delay(interval); // Delay after two blinks
         await blinkEyes(1); // One final blink
-        timeoutId = setTimeout(() => {
+        timeoutIdRef.current = setTimeout(() => {
             blinkWithTimer(timer);
-        }, timer);
+        }, timer) as number;
+        console.log('create timeout:' + timeoutIdRef.current);
     }
 
+    const hasMounted = useRef<boolean>(false);
     useEffect(() => {
-        blinkWithTimer(3000);
+        if(!hasMounted.current) {
+            hasMounted.current =true;
+            blinkWithTimer(3000);
+        }
     
         return () => {
-            clearTimeout(timeoutId); 
+            if (timeoutIdRef.current) {
+                console.log('clear timeout:' + timeoutIdRef.current);
+                clearTimeout(timeoutIdRef.current);
+            }
         };
     }, []);
     
