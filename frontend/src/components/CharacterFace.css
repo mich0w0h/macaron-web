@@ -1,0 +1,19 @@
+.character-eyes {
+    position: absolute;
+    top: 25%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.character-eye-default {
+    width: 12px;
+    height: 13px;
+    margin: 0 18px;
+}
+
+.character-eye-blink {
+    width: 16px;
+    height: 6px;
+    margin: 0 18px;
+}
