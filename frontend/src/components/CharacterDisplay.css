@@ -2,6 +2,21 @@
     position: relative;
     width: 224px;
     height: 246px;
+
+    animation: sway 6s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: rotateZ(0deg); /* Start and end position, no rotation */
+    }
+    20%, 40%, 60%, 80% {
+        transform: rotateZ(-5deg); /* Slight sway to the left */
+    }
+    30%, 70% {
+        transform: rotateZ(5deg); /* Sway to the right */
+    }
 }
 
 .character-body {
