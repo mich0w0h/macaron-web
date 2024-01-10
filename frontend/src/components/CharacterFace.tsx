@@ -7,6 +7,7 @@ interface CharacterFaceProps {
 
 const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
     const [blinking, setBlinking] = useState(false);
+    
     const blinkEyes = async (blinkCount: number): Promise<void> => {
         const duration: number = 130;
         for (let i = 0; i < blinkCount; i++) {
@@ -63,12 +64,12 @@ const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
                 <img
                     src="/src/assets/character-whiskers-left.png"
                     alt="Character Left Whiskers"
-                    className="character-whiskers-side"
+                    className="character-whiskers-left twitch-whiskers-left"
                 />
                 <img
                     src="/src/assets/character-whiskers-right.png"
                     alt="Character Right Whiskers"
-                    className="character-whiskers-side"
+                    className="character-whiskers-right twitch-whiskers-right"
                 />
             </div>
             <img
