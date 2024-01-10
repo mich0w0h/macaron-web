@@ -46,16 +46,35 @@ const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
     }, []);
 
     return (
-        <div className="character-eyes">
+        <div>
+            <div className="character-eyes">
+                <img
+                    src={blinking ? "/src/assets/character-eye-blink.png" : "/src/assets/character-eye-default.png"}
+                    alt="Character Left eye"
+                    className={blinking ? "character-eye-blink" : "character-eye-default"} 
+                />
+                <img
+                    src={blinking ? "/src/assets/character-eye-blink.png" : "/src/assets/character-eye-default.png"}
+                    alt="Character Right eye"
+                    className={blinking ? "character-eye-blink" : "character-eye-default"} 
+                />
+            </div>
+            <div className="character-whiskers">
+                <img
+                    src="/src/assets/character-whiskers-left.png"
+                    alt="Character Left Whiskers"
+                    className="character-whiskers-side"
+                />
+                <img
+                    src="/src/assets/character-whiskers-right.png"
+                    alt="Character Right Whiskers"
+                    className="character-whiskers-side"
+                />
+            </div>
             <img
-                src={blinking ? "/src/assets/character-eye-blink.png" : "/src/assets/character-eye-default.png"}
-                alt="Character Left eye"
-                className={blinking ? "character-eye-blink" : "character-eye-default"} 
-            />
-            <img
-                src={blinking ? "/src/assets/character-eye-blink.png" : "/src/assets/character-eye-default.png"}
-                alt="Character Right eye"
-                className={blinking ? "character-eye-blink" : "character-eye-default"} 
+                src="/src/assets/character-mouse.png"
+                alt="Character Mouse"
+                className="character-mouse"
             />
         </div>
     );
