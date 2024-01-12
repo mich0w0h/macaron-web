@@ -1,0 +1,25 @@
+.comment-input {
+  margin-top: 20px;
+}
+  
+.comment-input form {
+  display: flex;
+  align-items: center;
+}
+  
+.comment-input input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-right: 8px;
+}
+  
+.comment-input button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+  
