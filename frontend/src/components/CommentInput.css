@@ -8,14 +8,14 @@
 }
   
 .comment-input input {
-  padding: 8px;
+  padding: 8px 50px 8px 8px;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-right: 8px;
 }
   
 .comment-input button {
-  padding: 8px 16px;
+  padding: 8px 13px;
   border: none;
   border-radius: 8px;
   background-color: #3498db;

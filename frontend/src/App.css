@@ -1,23 +1,38 @@
-/* App.css */
+body {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: small;
+    
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+
 .center-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
     position: relative;
+    max-width: 18vw; /* Adjust as needed */
 }
   
 
 .comment-section {
     position: absolute;
-    bottom: 0;
+    bottom: -1vw;
     left: 0;
-    width: 70%;
+    width: 50%;
+    text-align: left;
 }
   

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CharacterDisplay from './components/CharacterDisplay';
 import CommentInput from './components/CommentInput';
 import CommentList from './components/CommentList';
-import './App.css'; // Make sure to import your styles
+import './App.css';
 
 const App: React.FC = () => {
   const [comments, setComments] = useState<string[]>([]);
