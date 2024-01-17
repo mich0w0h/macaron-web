@@ -29,7 +29,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
           value={comment}
           onChange={handleChange}
         />
-        <button type="submit">Send</button>
+        <button type="submit">
+          <span className="material-symbols-outlined">keyboard_double_arrow_left</span>
+        </button>
       </form>
     </div>
   );
