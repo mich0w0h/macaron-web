@@ -4,12 +4,11 @@
   }
   
   .comment-item {
-    padding: 8px;
-    margin-bottom: 8px;
+    padding: 0.63vw;
+    margin-bottom: 1vw;
     background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Hide overflow characters */
+    border-radius: 0.65vw;
+    box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
   }
   

@@ -1,28 +1,33 @@
 .comment-input {
-  margin-top: 20px;
+  margin-top: 1vw;
 }
-  
+
+
 .comment-input form {
   display: flex;
   align-items: center;
+  width: 100%;
 }
   
 .comment-input input {
-  padding: 8px 50px 8px 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  /* margin-right: 1px; */
+  padding: 0.65vw;
+  padding-right: 3vw;
+  border: 0.2vw solid #ccc;
+  border-radius: 0.5vw;
+  max-width: 10vw;
+  font-size: 1vw;
 }
   
 .comment-input button {
+  display: block;
   border: none;
   cursor: pointer;
-}
-
-.comment-input span {
-  padding: 3.5px;
-  border-radius: 5px;
+  
+  margin-left: 0.5vw;
+  padding: 0.58vw 0.7vw;
+  border-radius: 0.5vw;
   background-color: #3498db;
   color: #fff;
-  
+
+  font-size: 1.2vw;
 }

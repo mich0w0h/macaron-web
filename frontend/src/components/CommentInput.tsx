@@ -30,7 +30,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
           onChange={handleChange}
         />
         <button type="submit">
-          <span className="material-symbols-outlined">keyboard_double_arrow_left</span>
+          &lt;
         </button>
       </form>
     </div>
