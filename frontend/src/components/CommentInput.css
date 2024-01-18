@@ -22,12 +22,22 @@
   display: block;
   border: none;
   cursor: pointer;
+
+  font-size: 1.2vw;
   
   margin-left: 0.5vw;
   padding: 0.58vw 0.7vw;
   border-radius: 0.5vw;
   background-color: #3498db;
   color: #fff;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
 
-  font-size: 1.2vw;
+.comment-input button:hover {
+  background-color: #217dbb;
+}
+
+.comment-input button:active {
+  background-color: #14568b;
+  transform: scale(0.95);
 }
