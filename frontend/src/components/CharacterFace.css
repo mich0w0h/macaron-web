@@ -1,71 +1,33 @@
 .character-eyes {
     position: absolute;
-    top: 25%; 
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
 }
 
-.character-eye-default {
-    width: 12px;
-    height: 13px;
-    margin: 0 20px;
-}
-
+.character-eye-default,
 .character-eye-blink {
-    width: 16px;
-    height: 6px;
-    margin: 0 20px;
+    width: 0.78vw; /* Use vw (viewport width) units for responsive width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 1.4vw; /* Use vw units for responsive margins */
 }
 
 .character-whiskers {
     position: absolute;
-    top: 34%; 
+    top: 34%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
 }
 
-
-.character-whiskers-left, .character-whiskers-right {
-    width: 24px;
-    height: 20px;
-    margin: 0 45px;
-    transform-origin: center bottom; /* Set the transform origin to the bottom center */
-    animation: twitchWhiskers 2s infinite alternate; /* Use the defined animation */
-}
-
-.twitch-whiskers-left {
-    animation: twitchWhiskersLeft 2s infinite alternate;
-}
-
-.twitch-whiskers-right {
-    animation: twitchWhiskersRight 2s infinite alternate;
-}
-
-
-@keyframes twitchWhiskersLeft {
-    0%, 100% {
-        transform: scaleY(1) translateY(0) rotate(0deg); /* Initial and final state, no transformation */
-    }
-    20%, 80% {
-        transform: scaleY(1.01) translateY(-1px) rotate(4deg); /* Slight scale up, move up, and rotate counterclockwise */
-    }
-    40%, 60% {
-        transform: scaleY(0.99) translateY(1px) rotate(-2deg); /* Slight scale down, move down, and rotate clockwise */
-    }
-}
-
-@keyframes twitchWhiskersRight {
-    0%, 100% {
-        transform: scaleY(1) translateY(0) rotate(0deg); /* Initial and final state, no transformation */
-    }
-    20%, 80% {
-        transform: scaleY(1.01) translateY(-1px) rotate(-4deg); /* Slight scale up, move up, and rotate clockwise */
-    }
-    40%, 60% {
-        transform: scaleY(0.99) translateY(1px) rotate(2deg); /* Slight scale down, move down, and rotate counterclockwise */
-    }
+.character-whiskers-left,
+.character-whiskers-right {
+    width: 1.4vw; /* Use vw units for responsive width */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 2.7vw; /* Use vw units for responsive margins */
+    transform-origin: center bottom;
+    animation: twitchWhiskers 2s infinite alternate;
 }
 
 .character-mouse {
@@ -73,6 +35,6 @@
     top: 31%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 23px;
-    height: 27px;
+    width: 1.4vw; /* Use vw units for responsive width */
+    height: auto; /* Maintain aspect ratio */
 }
