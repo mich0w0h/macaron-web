@@ -12,16 +12,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className='center-container'>
-      <div className="container">
-        <CharacterDisplay />
-        <div className="comment-section">
-          <CommentList comments={comments} />
-          <CommentInput onCommentSubmit={handleCommentSubmit} />
-        </div>
+    <div className="container">
+      <CharacterDisplay />
+      <div className="comment-section">
+        <CommentList comments={comments} />
+        <CommentInput onCommentSubmit={handleCommentSubmit} />
       </div>
     </div>
-    
   );
 };
 

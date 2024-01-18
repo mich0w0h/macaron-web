@@ -1,6 +1,6 @@
 body {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 1vw;
+    font-size: 0.8vw;
     
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -11,15 +11,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 118vh;
     background-color: #f0f0f0;
-}
-
-
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .container {
@@ -30,9 +23,9 @@ body {
 
 .comment-section {
     position: absolute;
-    bottom: -1vw;
+    bottom: -3vw;
     left: 0;
-    width: 50%;
+    width: 100%;
     text-align: left;
 }
   
