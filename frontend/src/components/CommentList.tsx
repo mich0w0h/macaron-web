@@ -3,13 +3,16 @@ import "./CommentList.css";
 
 interface CommentListProps {
   comments: string[];
+  maxComments: number;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ comments }) => {
+const CommentList: React.FC<CommentListProps> = ({ comments, maxComments }) => {
+  const visibleComments = comments.slice(-maxComments);
+
   return (
     <div className="comment-list">
-      {comments.map((comment, index) => (
-        <div key={index} className="comment-item">
+      {visibleComments.map((comment, index) => (
+        <div key={index} className={`comment-item ${index < comments.length - maxComments ? 'hidden' : ''}`}>
           {comment}
         </div>
       ))}

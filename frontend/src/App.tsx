@@ -6,16 +6,18 @@ import './App.css';
 
 const App: React.FC = () => {
   const [comments, setComments] = useState<string[]>([]);
+  const maxCommentsToShow = 4;
 
   const handleCommentSubmit = (comment: string) => {
-    setComments([...comments, comment]);
+    const updatedComments = [...comments, comment];
+    setComments(updatedComments.slice(-maxCommentsToShow)); // Retain only the latest 'maxCommentsToShow'
   };
 
   return (
     <div className="container">
       <CharacterDisplay />
       <div className="comment-section">
-        <CommentList comments={comments} />
+        <CommentList comments={comments} maxComments={maxCommentsToShow} />
         <CommentInput onCommentSubmit={handleCommentSubmit} />
       </div>
     </div>

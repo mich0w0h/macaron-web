@@ -1,15 +1,16 @@
 .comment-list {
-    position: relative;
-    z-index: 2;
-    width: 50%;
-  }
-  
-  .comment-item {
-    padding: 0.5vw;
-    margin-bottom: 0.7vw;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 0.65vw;
-    box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
-    word-wrap: break-word;
-  }
-  
+  position: relative;
+  z-index: 2;
+  width: 50%;
+  overflow: hidden;
+}
+
+.comment-item {
+  padding: 0.5vw;
+  margin-bottom: 0.5vw;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.65vw;
+  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  opacity: 1;
+}
