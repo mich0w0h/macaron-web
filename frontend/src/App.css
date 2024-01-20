@@ -11,12 +11,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 118vh;
+    height: 110vh;
     background-color: #f0f0f0;
 }
 
 .container {
-    position: relative;
+    position: relative;    
     max-width: 18vw; /* Adjust as needed */
 }
   

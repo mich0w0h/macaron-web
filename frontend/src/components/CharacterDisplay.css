@@ -1,6 +1,5 @@
 .character {
     position: relative;
-    text-align: center;
 
     animation: sway 6s ease-in-out infinite;
     transform-origin: bottom center;
