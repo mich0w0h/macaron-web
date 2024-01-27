@@ -23,11 +23,42 @@
 
 .character-whiskers-left,
 .character-whiskers-right {
-    width: 1.4vw; /* Use vw units for responsive width */
+    width: 1.4vw; 
     height: auto; /* Maintain aspect ratio */
-    margin: 0 2.7vw; /* Use vw units for responsive margins */
+    margin: 0 2.7vw; 
     transform-origin: center bottom;
-    animation: twitchWhiskers 2s infinite alternate;
+}
+
+.twitch-whiskers-left {
+    animation: twitchWhiskersLeft 3s infinite alternate;
+}
+
+.twitch-whiskers-right {
+    animation: twitchWhiskersRight 3s infinite alternate;
+}
+
+@keyframes twitchWhiskersLeft {
+    0%, 100% {
+        transform: scaleY(1) translateY(0) rotate(0deg); /* Initial and final state, no transformation */
+    }
+    20%, 80% {
+        transform: scaleY(1.01) translateY(-1px) rotate(3deg); /* Slight scale up, move up, and rotate counterclockwise */
+    }
+    40%, 60% {
+        transform: scaleY(0.99) translateY(1px) rotate(-2deg); /* Slight scale down, move down, and rotate clockwise */
+    }
+}
+
+@keyframes twitchWhiskersRight {
+    0%, 100% {
+        transform: scaleY(1) translateY(0) rotate(0deg); /* Initial and final state, no transformation */
+    }
+    20%, 80% {
+        transform: scaleY(1.01) translateY(-1px) rotate(-3deg); /* Slight scale up, move up, and rotate clockwise */
+    }
+    40%, 60% {
+        transform: scaleY(0.99) translateY(1px) rotate(2deg); /* Slight scale down, move down, and rotate counterclockwise */
+    }
 }
 
 .character-mouse {
