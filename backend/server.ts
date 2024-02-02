@@ -1,5 +1,6 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 const router = new Router();
 
@@ -29,6 +30,13 @@ router
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+// Enable CORS for port 5173 on localhost using oakCors
+app.use(
+  oakCors({
+    origin: "http://localhost:5173",
+  }),
+);
 
 console.log(`Server running on http://localhost:8000`);
 await app.listen({ port: 8000 });
