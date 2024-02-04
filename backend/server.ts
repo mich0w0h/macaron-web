@@ -2,8 +2,19 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
-const router = new Router();
+const app = new Application();
 
+// Enable CORS for port 5173 on localhost using oakCors
+// make sure initializing oakCors before the router
+app.use(
+  oakCors({
+    origin: "http://localhost:5173",
+    optionsSuccessStatus: 200,
+    methods: "POST, OPTIONS",
+  }),
+);
+
+const router = new Router();
 router
   .get("/", (context) => {
     context.response.body = "Hello world!";
@@ -22,21 +33,13 @@ router
     context.response.body = { response };
     context.response.type = "json";
     context.response.status = 200;
-    
     // When this route handler finishes executing, the Oak framework automatically sends the response back to the client. 
     console.log("Response generated and sent to frontend");
   });
 
-const app = new Application();
+
 app.use(router.routes());
 app.use(router.allowedMethods());
-
-// Enable CORS for port 5173 on localhost using oakCors
-app.use(
-  oakCors({
-    origin: "http://localhost:5173",
-  }),
-);
 
 console.log(`Server running on http://localhost:8000`);
 await app.listen({ port: 8000 });
