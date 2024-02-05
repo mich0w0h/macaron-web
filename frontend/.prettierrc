@@ -1,0 +1,4 @@
+{
+  "eslintIntegration": true,
+  "eslintConfigFile": "./.eslintrc.cjs"
+}
