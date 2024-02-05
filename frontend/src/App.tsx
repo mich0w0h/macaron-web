@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useState } from 'react';
 import CharacterDisplay from './components/CharacterDisplay';
 import CommentInput from './components/CommentInput';
@@ -12,28 +11,25 @@ const App: React.FC = () => {
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
 
-  const handleCommentSubmit = (comment: string) => {
+  const handleCommentSubmit = async (comment: string) => {
     const updatedComments = [...comments, comment];
     setComments(updatedComments.slice(-maxCommentsToShow));
 
     // send the comment to the server and receive a response
-    fetch('http://localhost:8000/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ comment })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      console.log("response: ", response);
-      return response;
-    })
-    .catch(error => {
+    try {
+      const response = await fetch('http://localhost:8000/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ comment })
+      });
+      
+      const data = await response.json();
+      console.log('Generated response: ', data);
+    } catch (error) {
       console.error('Error:', error);
-    });
+    }
     
     setShowSpeechBalloon(true);
   };
