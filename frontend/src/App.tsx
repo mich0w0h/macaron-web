@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import CharacterDisplay from './components/CharacterDisplay';
-import CommentInput from './components/CommentInput';
-import CommentList from './components/CommentList';
-import SpeechBalloon from './components/SpeechBalloon';
-import './App.css';
+import React, { useState } from "react";
+import CharacterDisplay from "./components/CharacterDisplay";
+import CommentInput from "./components/CommentInput";
+import CommentList from "./components/CommentList";
+import SpeechBalloon from "./components/SpeechBalloon";
+import "./App.css";
 
 const App: React.FC = () => {
   const [comments, setComments] = useState<string[]>([]);
@@ -17,20 +17,20 @@ const App: React.FC = () => {
 
     // send the comment to the server and receive a response
     try {
-      const response = await fetch('http://localhost:8000/api/generate', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/api/generate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comment })
+        body: JSON.stringify({ comment }),
       });
-      
+
       const data = await response.json();
-      console.log('Generated response: ', data);
+      console.log("Generated response: ", data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
-    
+
     setShowSpeechBalloon(true);
   };
 
@@ -40,7 +40,11 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-      <SpeechBalloon message="マカロンはねむくなってきた" isVisible={showSpeechBalloon} onHide={handleSpeechBalloonHide} />
+      <SpeechBalloon
+        message="マカロンはねむくなってきた"
+        isVisible={showSpeechBalloon}
+        onHide={handleSpeechBalloonHide}
+      />
       <CharacterDisplay />
       <div className="comment-section">
         <CommentList comments={comments} maxComments={maxCommentsToShow} />
