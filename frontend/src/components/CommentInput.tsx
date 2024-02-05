@@ -8,11 +8,11 @@ interface CommentInputProps {
 const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
   const [comment, setComment] = useState<string>("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setComment(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     if (comment.trim() !== "") {
       onCommentSubmit(comment);
