@@ -11,32 +11,35 @@ const App: React.FC = () => {
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
 
-  const handleCommentSubmit = async (comment: string): Promise<string> => {
+  // Async function to handle the API call
+  const submitCommentToApi = async (comment: string): Promise<void> => {
+    const response: Response = await fetch(
+      "http://localhost:8000/api/generate",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment }),
+      },
+    );
+
+    const data = await response.json();
+    console.log("Generated response: ", data);
+  };
+
+  // Event handler function
+  const handleCommentSubmit = (comment: string): void => {
     const updatedComments: string[] = [...comments, comment];
     setComments(updatedComments.slice(-maxCommentsToShow));
-    let result: string = "";
 
-    try {
-      const response: Response = await fetch(
-        "http://localhost:8000/api/generate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ comment }),
-        },
-      );
-
-      const data = await response.json();
-      result = data.response;
-      console.log("result: ", result);
-    } catch (error: any) {
-      console.error("Error:", error);
-    }
-
-    setShowSpeechBalloon(true);
-    return result;
+    submitCommentToApi(comment)
+      .then(() => {
+        setShowSpeechBalloon(true);
+      })
+      .catch((error: any) => {
+        console.error("Error:", error);
+      });
   };
 
   const handleSpeechBalloonHide = (): void => {
