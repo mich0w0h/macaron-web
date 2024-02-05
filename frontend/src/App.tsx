@@ -6,13 +6,16 @@ import SpeechBalloon from "./components/SpeechBalloon";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [comments, setComments] = useState<string[]>([]);
+  const [userComments, setUserComments] = useState<string[]>([]);
+  const [characterResponse, setCharacterResponse] = useState<string>("");
 
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
 
   // Async function to handle the API call
-  const submitCommentToApi = async (comment: string): Promise<void> => {
+  const submitUserCommentToApi = async (
+    userComment: string,
+  ): Promise<string> => {
     const response: Response = await fetch(
       "http://localhost:8000/api/generate",
       {
@@ -20,22 +23,23 @@ const App: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify({ userComment }),
       },
     );
 
     const data = await response.json();
-    console.log("Generated response: ", data);
+    return data.response;
   };
 
   // Event handler function
-  const handleCommentSubmit = (comment: string): void => {
-    const updatedComments: string[] = [...comments, comment];
-    setComments(updatedComments.slice(-maxCommentsToShow));
+  const handleUserCommentSubmit = (userComment: string): void => {
+    const updatedComments: string[] = [...userComments, userComment];
+    setUserComments(updatedComments.slice(-maxCommentsToShow));
 
-    submitCommentToApi(comment)
-      .then(() => {
+    submitUserCommentToApi(userComment)
+      .then((characterResponse) => {
         setShowSpeechBalloon(true);
+        setCharacterResponse(characterResponse);
       })
       .catch((error: any) => {
         console.error("Error:", error);
@@ -49,14 +53,14 @@ const App: React.FC = () => {
   return (
     <div className="container">
       <SpeechBalloon
-        message="マカロンはねむくなってきた"
+        message={characterResponse}
         isVisible={showSpeechBalloon}
         onHide={handleSpeechBalloonHide}
       />
       <CharacterDisplay />
       <div className="comment-section">
-        <CommentList comments={comments} maxComments={maxCommentsToShow} />
-        <CommentInput onCommentSubmit={handleCommentSubmit} />
+        <CommentList comments={userComments} maxComments={maxCommentsToShow} />
+        <CommentInput onCommentSubmit={handleUserCommentSubmit} />
       </div>
     </div>
   );
