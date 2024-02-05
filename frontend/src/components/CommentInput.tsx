@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import './CommentInput.css';
+import React, { useState } from "react";
+import "./CommentInput.css";
 
 interface CommentInputProps {
   onCommentSubmit: (comment: string) => void;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
-  const [comment, setComment] = useState<string>('');
+  const [comment, setComment] = useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -14,9 +14,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (comment.trim() !== '') {
+    if (comment.trim() !== "") {
       onCommentSubmit(comment);
-      setComment('');
+      setComment("");
     }
   };
 
@@ -29,9 +29,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
           value={comment}
           onChange={handleChange}
         />
-        <button type="submit">
-          &lt;
-        </button>
+        <button type="submit">&lt;</button>
       </form>
     </div>
   );
