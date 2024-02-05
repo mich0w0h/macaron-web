@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
 
-  const handleCommentSubmit = async (comment: string) => {
+  const handleCommentSubmit = async (comment: string): Promise<void> => {
     const updatedComments = [...comments, comment];
     setComments(updatedComments.slice(-maxCommentsToShow));
 
@@ -34,7 +34,7 @@ const App: React.FC = () => {
     setShowSpeechBalloon(true);
   };
 
-  const handleSpeechBalloonHide = () => {
+  const handleSpeechBalloonHide = (): void => {
     setShowSpeechBalloon(false);
   };
 
