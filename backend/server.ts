@@ -25,7 +25,7 @@ router
     const json = JSON.parse(body);
     const comment = json.comment;
     console.log("user comment: ", comment);
-    
+
     // call the model to generate a response
     console.log("Generating response...");
     const response = "This is a response from the model";
@@ -33,10 +33,9 @@ router
     context.response.body = { response };
     context.response.type = "json";
     context.response.status = 200;
-    // When this route handler finishes executing, the Oak framework automatically sends the response back to the client. 
+    // When this route handler finishes executing, the Oak framework automatically sends the response back to the client.
     console.log("Response generated and sent to frontend");
   });
-
 
 app.use(router.routes());
 app.use(router.allowedMethods());
