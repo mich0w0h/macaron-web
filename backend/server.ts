@@ -21,9 +21,9 @@ router
   })
   // receive a user comment and return a response
   .post("/api/generate", async (context) => {
-    const body = await context.request.body;
-    const value = await body.text();
-    const comment: string = value.comment;
+    const body = await context.request.body.text();
+    const json = JSON.parse(body);
+    const comment = json.comment;
     console.log("user comment: ", comment);
     
     // call the model to generate a response
