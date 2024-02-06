@@ -1,7 +1,7 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
-import { CharacterResponse } from "../types/index.d.ts";
+import { CharacterResponse, UserComment } from "../types/index.d.ts";
 
 const app = new Application();
 
@@ -23,9 +23,8 @@ router
   // receive a user comment and return a response
   .post("/api/generate", async (context) => {
     const body = await context.request.body.text();
-    const json = JSON.parse(body);
-    const comment = json.comment;
-    console.log("user comment: ", comment);
+    const userComment: UserComment = JSON.parse(body);
+    console.log("user comment: ", userComment.text);
 
     // call the model to generate a response
     console.log("Generating response...");

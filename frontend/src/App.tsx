@@ -3,20 +3,19 @@ import CharacterDisplay from "./components/CharacterDisplay";
 import CommentInput from "./components/CommentInput";
 import CommentList from "./components/CommentList";
 import SpeechBalloon from "./components/SpeechBalloon";
-import { type CharacterResponse } from "../../types";
+import { type CharacterResponse, type UserComment } from "../../types";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [userComments, setUserComments] = useState<string[]>([]);
+  const [userComments, setUserComments] = useState<UserComment[]>([]);
   const [characterResponse, setCharacterResponse] = useState<string>("");
 
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
 
   // Async function to handle the API call
-  // Async function to handle the API call
   const submitUserCommentToApi = async (
-    userComment: string,
+    userComment: UserComment, // Use UserComment as the type for userComment
   ): Promise<string> => {
     try {
       const response: Response = await fetch(
@@ -26,7 +25,7 @@ const App: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userComment }),
+          body: JSON.stringify(userComment), // Pass userComment directly to JSON.stringify
         },
       );
 
@@ -38,9 +37,10 @@ const App: React.FC = () => {
       return "マカロン、よくわからなかった！";
     }
   };
+
   // Event handler function
-  const handleUserCommentSubmit = (userComment: string): void => {
-    const updatedComments: string[] = [...userComments, userComment];
+  const handleUserCommentSubmit = (userComment: UserComment): void => {
+    const updatedComments: UserComment[] = [...userComments, userComment];
     setUserComments(updatedComments.slice(-maxCommentsToShow));
 
     submitUserCommentToApi(userComment)

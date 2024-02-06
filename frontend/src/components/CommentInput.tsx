@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import "./CommentInput.css";
+import { type UserComment } from "../../../types";
 
 interface CommentInputProps {
-  onCommentSubmit: (comment: string) => void;
+  onCommentSubmit: (comment: UserComment) => void;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
-  const [comment, setComment] = useState<string>("");
+  const [comment, setComment] = useState<UserComment>({ text: "" });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setComment(event.target.value);
+    const newComment: UserComment = {
+      text: event.target.value,
+    };
+    setComment(newComment);
   };
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    if (comment.trim() !== "") {
+    if (comment.text.trim() !== "") {
       onCommentSubmit(comment);
-      setComment("");
+      setComment({ text: "" });
     }
   };
 
@@ -26,7 +30,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
         <input
           type="text"
           placeholder="Type your comment..."
-          value={comment}
+          value={comment.text}
           onChange={handleChange}
         />
         <button type="submit">&lt;</button>

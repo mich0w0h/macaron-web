@@ -4,3 +4,7 @@
 export type CharacterResponse = {
   text: string;
 };
+
+export type UserComment = {
+  text: string;
+};
