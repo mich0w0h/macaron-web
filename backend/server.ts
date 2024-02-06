@@ -1,27 +1,12 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
-import {
-  Application,
-  Middleware,
-  Router,
-} from "https://deno.land/x/oak/mod.ts";
+import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { CharacterResponse, UserComment } from "../types/index.d.ts";
 
 const app = new Application();
 
-// Define a whitelist of domains
-const whitelist = ["http://localhost:5173", "http://example.com"];
-
-// Middleware to check the Origin header
-const checkOrigin: Middleware = async (context, next) => {
-  const requestOrigin = context.request.headers.get("Origin");
-  if (requestOrigin && !whitelist.includes(requestOrigin)) {
-    context.response.status = 403;
-    context.response.body = "Origin not allowed";
-  } else {
-    await next();
-  }
-};
+// Define a whitelist of origins
+const whitelist = ["http://localhost:5173"];
 
 // Enable CORS for port 5173 on localhost using oakCors middleware
 const corsOptions = {
@@ -33,7 +18,6 @@ const corsOptions = {
 // make sure to initialize middlewares before the router
 app.use(
   oakCors(corsOptions),
-  checkOrigin,
 );
 
 const router = new Router();
