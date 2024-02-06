@@ -1,6 +1,7 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
+import { generateResponse } from "./responseGenerator.ts";
 import { CharacterResponse, UserComment } from "../types/index.d.ts";
 
 const app = new Application();
@@ -29,19 +30,15 @@ router
   .post("/api/generate", async (context) => {
     const body = await context.request.body.text();
     const userComment: UserComment = JSON.parse(body);
-    console.log("user comment: ", userComment.text);
 
-    // call the model to generate a response
-    console.log("Generating response...");
-    const characterResponse: CharacterResponse = {
-      text: "This is a CharacterResponse from the model",
-    };
+    const characterResponse: CharacterResponse = generateResponse(userComment);
 
     context.response.body = JSON.stringify(characterResponse);
     context.response.type = "json";
     context.response.status = 200;
+
     // When this route handler finishes executing, the Oak framework automatically sends the response back to the client.
-    console.log("Response generated and sent to frontend");
+    console.log("Response sent to frontend");
   });
 
 app.use(router.routes());
