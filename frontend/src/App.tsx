@@ -29,6 +29,12 @@ const App: React.FC = () => {
         },
       );
 
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${response.statusText}`,
+        );
+      }
+
       const characterResponse: CharacterResponse = await response.json();
 
       return characterResponse.text;
