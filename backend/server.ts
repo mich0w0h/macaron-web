@@ -23,16 +23,17 @@ const checkOrigin: Middleware = async (context, next) => {
   }
 };
 
-app.use(checkOrigin);
+// Enable CORS for port 5173 on localhost using oakCors middleware
+const corsOptions = {
+  origin: whitelist,
+  optionsSuccessStatus: 200,
+  methods: "POST, OPTIONS",
+};
 
-// Enable CORS for port 5173 on localhost using oakCors
-// make sure initializing oakCors before the router
+// make sure to initialize middlewares before the router
 app.use(
-  oakCors({
-    origin: whitelist,
-    optionsSuccessStatus: 200,
-    methods: "POST, OPTIONS",
-  }),
+  oakCors(corsOptions),
+  checkOrigin,
 );
 
 const router = new Router();
