@@ -30,9 +30,9 @@ const App: React.FC = () => {
         },
       );
 
-      const data: CharacterResponse = await response.json();
+      const characterResponse: CharacterResponse = await response.json();
 
-      return data.message;
+      return characterResponse.text;
     } catch (error) {
       console.error("Error:", error);
       return "マカロン、よくわからなかった！";

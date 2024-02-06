@@ -30,7 +30,7 @@ router
     // call the model to generate a response
     console.log("Generating response...");
     const characterResponse: CharacterResponse = {
-      message: "This is a CharacterResponse from the model",
+      text: "This is a CharacterResponse from the model",
     };
 
     context.response.body = JSON.stringify(characterResponse);
