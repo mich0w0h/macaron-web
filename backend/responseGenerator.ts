@@ -1,14 +1,17 @@
+import { generateLLMResponse } from "./langchainHandler.ts";
 import { CharacterResponse, UserComment } from "../types/index.d.ts";
 
-export function generateResponse(userComment: UserComment): CharacterResponse {
+export async function generateResponse(
+  userComment: UserComment,
+): Promise<CharacterResponse> {
   console.log("user comment: ", userComment.text);
 
-  // call the model to generate a response
-  console.log("Generating response...");
+  // invoke the LangChain to generate a response
+  const responseText: string = await generateLLMResponse(userComment.text);
+
   const characterResponse: CharacterResponse = {
-    text: "This is a CharacterResponse from the model",
+    text: responseText,
   };
 
-  console.log("Response generated!", characterResponse.text);
   return characterResponse;
 }

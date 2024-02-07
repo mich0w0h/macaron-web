@@ -31,14 +31,16 @@ router
     const body = await context.request.body.text();
     const userComment: UserComment = JSON.parse(body);
 
-    const characterResponse: CharacterResponse = generateResponse(userComment);
+    const characterResponse: CharacterResponse = await generateResponse(
+      userComment,
+    );
 
     context.response.body = JSON.stringify(characterResponse);
     context.response.type = "json";
     context.response.status = 200;
 
     // When this route handler finishes executing, the Oak framework automatically sends the response back to the client.
-    console.log("Response sent to frontend");
+    console.log("[deno router] response sent to frontend");
   });
 
 app.use(router.routes());
