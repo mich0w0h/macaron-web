@@ -1,8 +1,8 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
-import { generateResponse } from "./responseGenerator.ts";
-import { CharacterResponse, UserComment } from "../types/index.d.ts";
+import { generateResponse } from "./modules/responseGenerator.ts";
+import { CharacterResponse, UserComment } from "../../types/index.d.ts";
 
 const app = new Application();
 

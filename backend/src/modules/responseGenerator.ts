@@ -1,5 +1,5 @@
 import { generateLLMResponse } from "./langchainHandler.ts";
-import { CharacterResponse, UserComment } from "../types/index.d.ts";
+import { CharacterResponse, UserComment } from "../../../types/index.d.ts";
 
 export async function generateResponse(
   userComment: UserComment,

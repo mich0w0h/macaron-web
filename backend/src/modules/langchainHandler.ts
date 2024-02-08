@@ -2,11 +2,20 @@ import { ChatOpenAI } from "npm:@langchain/openai";
 import { PromptTemplate } from "npm:@langchain/core/prompts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { AIMessage } from "npm:@langchain/core/messages";
+import { dirname } from "https://deno.land/std@0.212.0/path/dirname.ts";
+
+// project root directory path
+// the project root is the parent directory of where deno server is run
+const projectRootPath = dirname(Deno.cwd());
+
+// load environment variables from .env file in project root
+const env = config({ path: projectRootPath + "/.env" });
 
 function createModel() {
+  console.log("dir name: ", projectRootPath);
   return new ChatOpenAI({
     modelName: "gpt-3.5-turbo",
-    openAIApiKey: config().OPENAI_API_KEY,
+    openAIApiKey: env.OPENAI_API_KEY,
   });
 }
 
