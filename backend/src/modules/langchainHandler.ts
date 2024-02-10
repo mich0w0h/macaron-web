@@ -3,31 +3,27 @@ import {
   FewShotPromptTemplate,
   PromptTemplate,
 } from "npm:@langchain/core/prompts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
 import { AIMessage } from "npm:@langchain/core/messages";
-import { dirname } from "https://deno.land/std@0.212.0/path/dirname.ts";
-
-// project root directory path
-// the project root is the parent directory of where deno server is run
-const projectRootPath = dirname(Deno.cwd());
-
-// load environment variables from .env file in project root
-const env = config({ path: projectRootPath + "/.env" });
+import { getEnv } from "./envConfig.ts";
+import { csvToFlatArray } from "./csvParser.ts";
 
 function createModel() {
+  const env = getEnv();
+
   return new ChatOpenAI({
     modelName: "gpt-3.5-turbo",
     openAIApiKey: env.OPENAI_API_KEY,
+    maxTokens: 20,
   });
 }
 
-function createPrompt(characterLines: string[]) {
+function createPromptFromLines(characterLines: string[]) {
   const examples = characterLines.map((line) => {
     return { "answer": line }; // answer is the label for the example
   });
 
-  const prompt = new PromptTemplate({
-    template: "マカロン： {answer}",
+  const example_prompt = new PromptTemplate({
+    template: "{answer}",
     inputVariables: ["answer"],
   });
 
@@ -39,7 +35,7 @@ function createPrompt(characterLines: string[]) {
 
   const fewShotPrompt = new FewShotPromptTemplate({
     examples: examples,
-    examplePrompt: prompt,
+    examplePrompt: example_prompt,
     prefix: prefix,
     suffix: suffix,
     inputVariables: ["commentText"],
@@ -51,11 +47,9 @@ function createPrompt(characterLines: string[]) {
 async function invokeLangChain(commentText: string): Promise<AIMessage> {
   const model = createModel();
 
-  const characterLines = [
-    "マカロンだよ！",
-    "おはおはよ！",
-  ];
-  const promptTemplate = createPrompt(characterLines);
+  const characterLines = await csvToFlatArray("./data/line_examples.csv");
+  const promptTemplate = createPromptFromLines(characterLines);
+
   console.log("[LangChain] prompt template created: ", promptTemplate);
 
   const formattedPrompt = await promptTemplate.format({
