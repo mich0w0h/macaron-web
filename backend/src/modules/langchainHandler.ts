@@ -3,7 +3,7 @@ import {
   FewShotPromptTemplate,
   PromptTemplate,
 } from "npm:@langchain/core/prompts";
-import { AIMessage } from "npm:@langchain/core/messages";
+import { StringOutputParser } from "npm:@langchain/core/output_parsers";
 import { getEnv } from "./envConfig.ts";
 import { csvToFlatArray } from "./csvParser.ts";
 
@@ -44,30 +44,30 @@ function createPromptFromLines(characterLines: string[]) {
   return fewShotPrompt;
 }
 
-async function invokeLangChain(commentText: string): Promise<AIMessage> {
+async function invokeLangChain(commentText: string): Promise<string> {
   const model = createModel();
+  const outputParser = new StringOutputParser();
 
   const characterLines = await csvToFlatArray("./data/line_examples.csv");
   const promptTemplate = createPromptFromLines(characterLines);
 
   console.log("[LangChain] prompt template created: ", promptTemplate);
 
-  const formattedPrompt = await promptTemplate.format({
+  const chain = promptTemplate.pipe(model).pipe(outputParser);
+
+  const stringResult = await chain.invoke({
     commentText: commentText,
-  });
+  }) as string;
 
-  const result: AIMessage = await model.invoke(formattedPrompt);
+  console.log("[LangChain] response generated: ", stringResult);
 
-  console.log("[LangChain] response generated: ", result);
-
-  return result;
+  return stringResult;
 }
 
 export async function generateLLMResponse(
   commentText: string,
 ): Promise<string> {
-  const response: AIMessage = await invokeLangChain(commentText);
-  const responseText = response.content.toString();
+  const stringResult: string = await invokeLangChain(commentText);
 
-  return responseText;
+  return stringResult;
 }
