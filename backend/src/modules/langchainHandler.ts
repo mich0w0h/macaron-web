@@ -13,7 +13,7 @@ function createModel() {
   return new ChatOpenAI({
     modelName: "gpt-3.5-turbo",
     openAIApiKey: env.OPENAI_API_KEY,
-    maxTokens: 20,
+    maxTokens: 100,
   });
 }
 
@@ -22,20 +22,20 @@ function createPromptFromLines(characterLines: string[]) {
     return { "answer": line }; // answer is the label for the example
   });
 
-  const example_prompt = new PromptTemplate({
+  const examplePrompt = new PromptTemplate({
     template: "{answer}",
     inputVariables: ["answer"],
   });
 
-  const prefix =
-    "以下の回答例を参考にして、ユーザーの入力に対してのマカロンの返答を作成してください";
+  const prefix = `以下はマカロンというキャラクターとユーザーとの会話の抜粋です。
+マカロンは漢字は全く使わないです。また一文でしか返答しません。また、幼い女児のような話し方をします。話し方の例はこんな感じです：`;
   const suffix = `
     ユーザー： {commentText}
     マカロン：`;
 
   const fewShotPrompt = new FewShotPromptTemplate({
-    examples: examples,
-    examplePrompt: example_prompt,
+    examples,
+    examplePrompt,
     prefix: prefix,
     suffix: suffix,
     inputVariables: ["commentText"],
