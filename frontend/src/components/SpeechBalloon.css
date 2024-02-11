@@ -12,8 +12,10 @@
     box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1); 
     
     opacity: 1;    
-    font-size: 1vw;
     z-index: 2;
+
+    font-size: 1vw;
+    white-space: pre-line;
 }
 
 .speech-balloon::before {
