@@ -8,7 +8,9 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [userComments, setUserComments] = useState<UserComment[]>([]);
-  const [characterResponse, setCharacterResponse] = useState<string>("");
+  const [characterResponse, setCharacterResponse] = useState<CharacterResponse>(
+    { text: "" },
+  );
 
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 4;
@@ -16,7 +18,9 @@ const App: React.FC = () => {
   // Async function to handle the API call
   const submitUserCommentToApi = async (
     userComment: UserComment, // Use UserComment as the type for userComment
-  ): Promise<string> => {
+  ): Promise<CharacterResponse> => {
+    let characterResponse: CharacterResponse = { text: "" };
+
     try {
       const response: Response = await fetch(
         "http://localhost:8000/api/generate",
@@ -35,12 +39,12 @@ const App: React.FC = () => {
         );
       }
 
-      const characterResponse: CharacterResponse = await response.json();
-
-      return characterResponse.text;
+      characterResponse = await response.json();
+      return characterResponse;
     } catch (error) {
       console.error("Error:", error);
-      return "マカロン、よくわからなかった！";
+      characterResponse.text = "マカロン、よくわからなかった！";
+      return characterResponse;
     }
   };
 
@@ -66,7 +70,7 @@ const App: React.FC = () => {
   return (
     <div className="container">
       <SpeechBalloon
-        message={characterResponse}
+        message={characterResponse.text}
         isVisible={showSpeechBalloon}
         onHide={handleSpeechBalloonHide}
       />
