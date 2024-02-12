@@ -13,7 +13,7 @@ const App: React.FC = () => {
   );
 
   const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
-  const maxCommentsToShow = 4;
+  const maxCommentsToShow = 3;
 
   // Async function to handle the API call
   const submitUserCommentToApi = async (
