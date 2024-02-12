@@ -33,8 +33,8 @@ function createPromptFromLines(
 
   const prefix =
     `ユーザーの入力に対し、マカロンというキャラクターの返答を生成してください。
-マカロンは幼い女の子みたいに話す、世間知らずなキャラクターです。
-また、マカロンの返答は一言で作成してください。`;
+マカロンは小さな子供みたいに話す、世間知らずなキャラクターです。一人称はマカロン。
+また、マカロンの返答は一言で作成してください。話し方の例はこんな感じです：`;
   const suffix = `
 ユーザー： {commentText}
 マカロン：
@@ -58,6 +58,12 @@ function createPromptToConvertKanji(): FewShotPromptTemplate {
       "input": "私はお金が欲しいです。",
       "output": "わたしはおかねがほしいです。",
     },
+    // カタカナはそのままにする
+    {
+      "input": "私はスイカが好きです。",
+      "output": "わたしはスイカがすきです。",
+    },
+    { "input": "名前はマカロンだよ！", "output": "なまえはマカロンだよ！" },
   ];
 
   const examplePrompt = new PromptTemplate({
@@ -68,7 +74,8 @@ function createPromptToConvertKanji(): FewShotPromptTemplate {
   const fewShotPrompt = new FewShotPromptTemplate({
     examples,
     examplePrompt,
-    prefix: "次の文章の漢字をひらがなに変換してください。",
+    prefix:
+      "次の文章の漢字をひらがなに変換してください。ただし、カタカナは変換しないでください。",
     suffix: "入力：{input_string}\n出力：",
     inputVariables: ["input_string"],
   });
