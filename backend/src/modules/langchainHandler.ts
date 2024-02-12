@@ -7,6 +7,7 @@ import {
 import { StringOutputParser } from "npm:@langchain/core/output_parsers";
 import { getEnv } from "./envConfig.ts";
 import { csvToFlatArray } from "./csvParser.ts";
+import { containsKanji } from "./characterChecker.ts";
 
 function createModel() {
   const env = getEnv();
@@ -50,14 +51,37 @@ function createPromptFromLines(
   return fewShotPrompt;
 }
 
+function createPromptToConvertKanji(): FewShotPromptTemplate {
+  const examples = [
+    { "input": "私は猫が好きです。", "output": "わたしはねこがすきです。" },
+    {
+      "input": "私はお金が欲しいです。",
+      "output": "わたしはおかねがほしいです。",
+    },
+  ];
+
+  const examplePrompt = new PromptTemplate({
+    template: "入力：{input}\n出力：{output}",
+    inputVariables: ["input", "output"],
+  });
+
+  const fewShotPrompt = new FewShotPromptTemplate({
+    examples,
+    examplePrompt,
+    prefix: "次の文章の漢字をひらがなに変換してください。",
+    suffix: "入力：{input_string}\n出力：",
+    inputVariables: ["input_string"],
+  });
+
+  return fewShotPrompt;
+}
+
 async function invokeFewShot(
   promptTemplate: FewShotPromptTemplate,
   chainInput: RunInput,
 ): Promise<string> {
   const model = createModel();
   const outputParser = new StringOutputParser();
-
-  console.log("[LangChain] prompt template created: ", promptTemplate);
 
   const chain = promptTemplate.pipe(model).pipe(outputParser);
 
@@ -74,9 +98,16 @@ export async function generateLLMResponse(
   const characterLines = await csvToFlatArray("./data/line_examples.csv");
   const promptTemplate = createPromptFromLines(characterLines);
 
-  const stringResult: string = await invokeFewShot(promptTemplate, {
+  let stringResult: string = await invokeFewShot(promptTemplate, {
     commentText: commentText,
   });
+
+  if (containsKanji(stringResult)) {
+    const kanjiConversionPrompt = createPromptToConvertKanji();
+    stringResult = await invokeFewShot(kanjiConversionPrompt, {
+      input_string: stringResult,
+    });
+  }
 
   return stringResult;
 }
