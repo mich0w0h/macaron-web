@@ -1,4 +1,5 @@
 import { ChatOpenAI } from "npm:@langchain/openai";
+import { RunInput } from "npm:@langchain/core";
 import {
   FewShotPromptTemplate,
   PromptTemplate,
@@ -17,7 +18,9 @@ function createModel() {
   });
 }
 
-function createPromptFromLines(characterLines: string[]) {
+function createPromptFromLines(
+  characterLines: string[],
+): FewShotPromptTemplate {
   const examples = characterLines.map((line) => {
     return { "answer": line }; // answer is the label for the example
   });
@@ -27,11 +30,14 @@ function createPromptFromLines(characterLines: string[]) {
     inputVariables: ["answer"],
   });
 
-  const prefix = `以下はマカロンというキャラクターとユーザーとの会話の抜粋です。
-マカロンは漢字は全く使わないです。また一文でしか返答しません。また、幼い女児のような話し方をします。話し方の例はこんな感じです：`;
+  const prefix =
+    `ユーザーの入力に対し、マカロンというキャラクターの返答を生成してください。
+マカロンは幼い女の子みたいに話す、世間知らずなキャラクターです。
+また、マカロンの返答は一言で作成してください。`;
   const suffix = `
-    ユーザー： {commentText}
-    マカロン：`;
+ユーザー： {commentText}
+マカロン：
+`;
 
   const fewShotPrompt = new FewShotPromptTemplate({
     examples,
@@ -44,20 +50,18 @@ function createPromptFromLines(characterLines: string[]) {
   return fewShotPrompt;
 }
 
-async function invokeLangChain(commentText: string): Promise<string> {
+async function invokeFewShot(
+  promptTemplate: FewShotPromptTemplate,
+  chainInput: RunInput,
+): Promise<string> {
   const model = createModel();
   const outputParser = new StringOutputParser();
-
-  const characterLines = await csvToFlatArray("./data/line_examples.csv");
-  const promptTemplate = createPromptFromLines(characterLines);
 
   console.log("[LangChain] prompt template created: ", promptTemplate);
 
   const chain = promptTemplate.pipe(model).pipe(outputParser);
 
-  const stringResult = await chain.invoke({
-    commentText: commentText,
-  }) as string;
+  const stringResult = await chain.invoke(chainInput) as string;
 
   console.log("[LangChain] response generated: ", stringResult);
 
@@ -67,7 +71,12 @@ async function invokeLangChain(commentText: string): Promise<string> {
 export async function generateLLMResponse(
   commentText: string,
 ): Promise<string> {
-  const stringResult: string = await invokeLangChain(commentText);
+  const characterLines = await csvToFlatArray("./data/line_examples.csv");
+  const promptTemplate = createPromptFromLines(characterLines);
+
+  const stringResult: string = await invokeFewShot(promptTemplate, {
+    commentText: commentText,
+  });
 
   return stringResult;
 }
