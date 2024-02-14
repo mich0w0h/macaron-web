@@ -1,16 +1,24 @@
 .comment-list {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  bottom: 100%;
+  overflow: auto;
   width: 50%;
-  overflow: hidden;
 }
 
 .comment-item {
-  padding: 0.5vw;
+  padding: 0.45vw 0.75vw;
   margin-bottom: 0.5vw;
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 0.65vw;
+  border-radius: 0.6vw;
   box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .comment-item {
+    padding: calc(3px + 0.5vw) calc(5px + 0.8vw);
+    margin-bottom: calc(5px + 1vw);
+    font-size: calc(5px + 2.5vw);
+  }
 }

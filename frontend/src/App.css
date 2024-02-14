@@ -7,25 +7,52 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 110vh;
     background-color: #f0f0f0;
 }
 
 .container {
-    position: relative;    
-    max-width: 18vw; /* Adjust as needed */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 100vh;
+    margin: 0 auto;
 }
-  
+
+.character-section {
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .comment-section {
-    position: absolute;
-    bottom: -3vw;
-    left: 0;
-    width: 100%;
-    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+    z-index: 3;
 }
-  
+
+@media (max-width: 600px) {
+    .container {
+        width: 70%;
+        
+    }
+    .character-section {
+        width: 100%;
+    }
+
+    .comment-section {
+        width: 100%;
+    }
+
+    .comment-section {
+        top: 0%;
+    }
+  }

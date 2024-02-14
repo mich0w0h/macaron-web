@@ -1,16 +1,15 @@
 .character-eyes {
     position: absolute;
-    top: 25%;
+    top: 26%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: flex;
 }
 
 .character-eye-default,
 .character-eye-blink {
-    width: 0.78vw; /* Use vw (viewport width) units for responsive width */
+    width: 0.75vw;
+    margin: 1.2vw;
     height: auto; /* Maintain aspect ratio */
-    margin: 0 1.4vw; /* Use vw units for responsive margins */
 }
 
 .character-whiskers {
@@ -28,6 +27,32 @@
     margin: 0 2.7vw; 
     transform-origin: center bottom;
 }
+
+.character-mouse {
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8%; 
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+@media (max-width: 600px){
+    .character-eye-default,
+    .character-eye-blink {
+        width: 2.8vw;
+        margin: 5vw;
+    }
+
+    .character-whiskers-left,
+    .character-whiskers-right {
+        width: 5vw; 
+        margin: 0 10vw; 
+    }
+}
+
+/* Animations */
 
 .twitch-whiskers-left {
     animation: twitchWhiskersLeft 3s infinite alternate;
@@ -61,11 +86,3 @@
     }
 }
 
-.character-mouse {
-    position: absolute;
-    top: 31%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1.4vw; /* Use vw units for responsive width */
-    height: auto; /* Maintain aspect ratio */
-}

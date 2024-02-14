@@ -1,17 +1,17 @@
 .ear {
     position: absolute;
     top: 0;
-    width: 2.5vw; /* Adjust the vw value for responsive width */
+    width: 15%;
     height: auto; /* Maintain aspect ratio */
     transition: transform 0.2s ease;
 }
 
 .ear-left {
-    left: 4.3vw; /* Adjust the vw value for responsive positioning */
+    left: 23%;
 }
 
 .ear-right {
-    right: 4.5vw; /* Adjust the vw value for responsive positioning */
+    right: 25%;
 }
 
 .twitch-left {

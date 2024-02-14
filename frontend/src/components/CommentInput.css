@@ -2,10 +2,10 @@
   margin-top: 0.5vw;
 }
 
+/* other styles */
 .comment-input form {
   display: flex;
   align-items: center;
-  width: 100%;
 }
   
 .comment-input input {
@@ -13,23 +13,40 @@
   padding-right: 3vw;
   border: 0.2vw solid #ccc;
   border-radius: 0.5vw;
-  max-width: 10vw;
   font-size: 0.9vw;
 }
-  
+
 .comment-input button {
   display: block;
   border: none;
   cursor: pointer;
-
   font-size: 1.2vw;
-  
   margin-left: 0.5vw;
   padding: 0.58vw 0.7vw;
   border-radius: 0.5vw;
   background-color: #3498db;
   color: #fff;
   transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+@media (max-width: 600px) {
+  .comment-input {
+    margin-top: calc(5px + 1vw);
+  }
+
+  .comment-input input {
+    padding: calc(5px + 1.5vw);
+    padding-right: calc(15px + 3vw);
+    font-size: calc(4px + 3vw);
+    border-radius: 1vw;
+  }
+
+  .comment-input button {
+    padding: calc(3px + 0.5vw) calc(5px + 1.5vw);
+    font-size: calc(10px + 3vw); 
+    margin-left: calc(3px + 2vw); 
+    border-radius: 1vw;
+  }
 }
 
 .comment-input button:hover {

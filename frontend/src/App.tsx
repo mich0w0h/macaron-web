@@ -66,12 +66,14 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-      <SpeechBalloon
-        message={characterResponse.text}
-        isVisible={showSpeechBalloon}
-        onHide={handleSpeechBalloonHide}
-      />
-      <CharacterDisplay />
+      <div className="character-section">
+        <SpeechBalloon
+          message={characterResponse.text}
+          isVisible={showSpeechBalloon}
+          onHide={handleSpeechBalloonHide}
+        />
+        <CharacterDisplay />
+      </div>
       <div className="comment-section">
         <CommentList comments={userComments} maxComments={maxCommentsToShow} />
         <CommentInput onCommentSubmit={handleUserCommentSubmit} />
