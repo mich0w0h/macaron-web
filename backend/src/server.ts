@@ -1,6 +1,7 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
+import { RateLimiter } from "https://deno.land/x/oak_rate_limit/mod.ts";
 import { generateResponse } from "./modules/responseGenerator.ts";
 import { CharacterResponse, UserComment } from "../../types/index.d.ts";
 
@@ -16,9 +17,16 @@ const corsOptions = {
   methods: "POST, OPTIONS",
 };
 
+// Set up rate limiting middleware
+const rateLimit = RateLimiter({
+  windowMs: 1000,
+  max: 100,
+});
+
 // make sure to initialize middlewares before the router
 app.use(
   oakCors(corsOptions),
+  await rateLimit,
 );
 
 const router = new Router();
