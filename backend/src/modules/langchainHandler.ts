@@ -9,15 +9,13 @@ import { getEnv } from "./envConfig.ts";
 import { csvToFlatArray } from "./csvParser.ts";
 import { containsKanji } from "./characterChecker.ts";
 
-function createModel() {
-  const env = getEnv();
+const model = new ChatOpenAI({
+  modelName: "gpt-3.5-turbo",
+  openAIApiKey: getEnv().OPENAI_API_KEY,
+  maxTokens: 100,
+});
 
-  return new ChatOpenAI({
-    modelName: "gpt-3.5-turbo",
-    openAIApiKey: env.OPENAI_API_KEY,
-    maxTokens: 100,
-  });
-}
+const outputParser = new StringOutputParser();
 
 function createPromptFromLines(
   characterLines: string[],
@@ -87,11 +85,7 @@ async function invokeFewShot(
   promptTemplate: FewShotPromptTemplate,
   chainInput: RunInput,
 ): Promise<string> {
-  const model = createModel();
-  const outputParser = new StringOutputParser();
-
   const chain = promptTemplate.pipe(model).pipe(outputParser);
-
   const stringResult = await chain.invoke(chainInput) as string;
 
   console.log("[LangChain] response generated: ", stringResult);
