@@ -32,6 +32,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ onCommentSubmit }) => {
           placeholder="Type your comment..."
           value={comment.text}
           onChange={handleChange}
+          maxLength={25}
         />
         <button type="submit">&lt;</button>
       </form>
