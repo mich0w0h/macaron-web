@@ -22,16 +22,13 @@ const App: React.FC = () => {
     let characterResponse: CharacterResponse = { text: "" };
 
     try {
-      const response: Response = await fetch(
-        "http://localhost:8000/api/generate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userComment), // Pass userComment directly to JSON.stringify
+      const response: Response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(userComment), // Pass userComment directly to JSON.stringify
+      });
 
       if (!response.ok) {
         throw new Error(

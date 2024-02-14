@@ -27,7 +27,7 @@ router
     context.response.body = "Hello world!";
   })
   // receive a user comment and return a response
-  .post("/api/generate", async (context) => {
+  .post("/generate", async (context) => {
     const body = await context.request.body.text();
     const userComment: UserComment = JSON.parse(body);
 
