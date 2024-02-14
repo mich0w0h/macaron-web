@@ -2,7 +2,7 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { RateLimiter } from "https://deno.land/x/oak_rate_limit/mod.ts";
-import { generateResponse } from "./modules/responseGenerator.ts";
+import { generateLLMResponse } from "./modules/langchainHandler.ts";
 import { CharacterResponse, UserComment } from "../../types/index.d.ts";
 
 const app = new Application();
@@ -39,9 +39,13 @@ router
     const body = await context.request.body.text();
     const userComment: UserComment = JSON.parse(body);
 
-    const characterResponse: CharacterResponse = await generateResponse(
-      userComment,
+    const responseText: string = await generateLLMResponse(
+      userComment.text,
     );
+
+    const characterResponse: CharacterResponse = {
+      text: responseText,
+    };
 
     context.response.body = JSON.stringify(characterResponse);
     context.response.type = "json";
