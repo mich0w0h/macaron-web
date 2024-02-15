@@ -5,15 +5,16 @@ import CommentList from "./components/CommentList";
 import SpeechBalloon from "./components/SpeechBalloon";
 import { type CharacterResponse, type UserComment } from "../../types";
 import useApi from "./hooks/useApi";
+import useSpeechBalloon from "./hooks/useSpeechBalloonVisibility";
 import "./App.css";
 
 const App: React.FC = () => {
   const [userComments, setUserComments] = useState<UserComment[]>([]);
-  const [showSpeechBalloon, setShowSpeechBalloon] = useState(false);
   const maxCommentsToShow = 3;
 
-  // custom hook
+  // custom hooks
   const { data: characterResponse, callApi } = useApi<CharacterResponse>();
+  const { isVisible, showBalloon, hideBalloon } = useSpeechBalloon();
 
   // Event handler function
   const handleUserCommentSubmit = (userComment: UserComment): void => {
@@ -22,15 +23,11 @@ const App: React.FC = () => {
 
     callApi("/api/generate", "POST", userComment)
       .then(() => {
-        setShowSpeechBalloon(true);
+        showBalloon();
       })
       .catch((error: any) => {
         console.error("Error:", error);
       });
-  };
-
-  const handleSpeechBalloonHide = (): void => {
-    setShowSpeechBalloon(false);
   };
 
   return (
@@ -38,8 +35,8 @@ const App: React.FC = () => {
       <div className="character-section">
         <SpeechBalloon
           message={characterResponse?.text ?? ""}
-          isVisible={showSpeechBalloon}
-          onHide={handleSpeechBalloonHide}
+          isVisible={isVisible}
+          onHide={hideBalloon}
         />
         <CharacterDisplay />
       </div>
