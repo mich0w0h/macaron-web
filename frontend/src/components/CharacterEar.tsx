@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CharacterEar.css";
+import leftEarImg from "../assets/character-left-ear.png";
+import rightEarImg from "../assets/character-right-ear.png";
 
 interface CharacterEarProps {
   side: "left" | "right";
@@ -34,9 +36,11 @@ const CharacterEar: React.FC<CharacterEarProps> = ({ side, delayFunction }) => {
     setTwitching(false);
   };
 
+  const earImage = side === "left" ? leftEarImg : rightEarImg;
+
   return (
     <img
-      src={`/src/assets/character-${side}-ear.png`}
+      src={earImage}
       alt={`${side} ear`}
       className={`ear ear-${side} ${twitching ? "twitch-" + side : ""}`}
     />

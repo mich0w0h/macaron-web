@@ -2,6 +2,7 @@ import React from "react";
 import CharacterEar from "./CharacterEar";
 import CharacterFace from "./CharacterFace";
 import "./CharacterDisplay.css";
+import CharacterBodyImg from "../assets/character-body.png";
 
 const CharacterDisplay: React.FC = () => {
   const delay = async (ms: number): Promise<void> => {
@@ -11,7 +12,7 @@ const CharacterDisplay: React.FC = () => {
   return (
     <div className="character">
       <img
-        src="/src/assets/character-body.png"
+        src={CharacterBodyImg}
         alt="Character body"
         className="character-body"
       />
