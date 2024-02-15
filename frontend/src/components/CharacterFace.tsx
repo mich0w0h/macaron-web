@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { delay } from "../delay";
 import "./CharacterFace.css";
 import characterEyeBlinkImg from "../assets/character-eye-blink.png";
 import characterEyeDefaultImg from "../assets/character-eye-default.png";
@@ -6,20 +7,16 @@ import characterWhiskersLeftImg from "../assets/character-whiskers-left.png";
 import characterWhiskersRightImg from "../assets/character-whiskers-right.png";
 import characterMouseImg from "../assets/character-mouse.png";
 
-interface CharacterFaceProps {
-  delayFunction: (ms: number) => Promise<void>;
-}
-
-const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
+const CharacterFace: React.FC = () => {
   const [blinking, setBlinking] = useState(false);
 
   const blinkEyes = async (blinkCount: number): Promise<void> => {
     const duration: number = 130;
     for (let i = 0; i < blinkCount; i++) {
       setBlinking(true);
-      await delayFunction(duration);
+      await delay(duration);
       setBlinking(false);
-      await delayFunction(duration);
+      await delay(duration);
     }
   };
 
@@ -27,9 +24,9 @@ const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
     console.log("start blinkWithTimer: " + timer);
     const interval = 1500;
     await blinkEyes(1); // One blink
-    await delayFunction(interval); // Delay after one blink
+    await delay(interval); // Delay after one blink
     await blinkEyes(2); // Two blinks
-    await delayFunction(interval); // Delay after two blinks
+    await delay(interval); // Delay after two blinks
     await blinkEyes(1); // One final blink
 
     console.log("set next blinkWithTimer");

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./CharacterEar.css";
 import leftEarImg from "../assets/character-left-ear.png";
 import rightEarImg from "../assets/character-right-ear.png";
+import { delay } from "../delay";
 
 interface CharacterEarProps {
   side: "left" | "right";
-  delayFunction: (ms: number) => Promise<void>;
 }
 
-const CharacterEar: React.FC<CharacterEarProps> = ({ side, delayFunction }) => {
+const CharacterEar: React.FC<CharacterEarProps> = ({ side }) => {
   const [twitching, setTwitching] = useState(false);
   const twitchDuration: number = 150;
 
@@ -25,13 +25,13 @@ const CharacterEar: React.FC<CharacterEarProps> = ({ side, delayFunction }) => {
   const twitchEars = async (): Promise<void> => {
     setTwitching(true);
 
-    await delayFunction(twitchDuration);
+    await delay(twitchDuration);
     setTwitching(false);
 
-    await delayFunction(200); // Delay between the twitches
+    await delay(200); // Delay between the twitches
 
     setTwitching(true);
-    await delayFunction(twitchDuration);
+    await delay(twitchDuration);
 
     setTwitching(false);
   };

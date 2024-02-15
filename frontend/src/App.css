@@ -38,9 +38,9 @@ body {
     transform: translate(-50%, -50%);
     width: 20vw;
     height: 20vw;
-    border: 2vw solid white;
+    border: 2vw solid #fcfcfc;
     border-radius: 50%;
-    background-color: white;
+    background-color: #fcfcfc;
     z-index: -1; /* Ensure the circle is behind the character */
 }
 
