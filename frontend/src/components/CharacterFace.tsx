@@ -34,7 +34,7 @@ const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
 
     console.log("set next blinkWithTimer");
     setTimeout(() => {
-      blinkWithTimer(timer);
+      blinkWithTimer(timer).catch(console.error);
     }, timer);
   };
 
@@ -43,7 +43,7 @@ const CharacterFace: React.FC<CharacterFaceProps> = ({ delayFunction }) => {
     if (!hasMounted.current) {
       hasMounted.current = true;
       console.log("initialize");
-      blinkWithTimer(3000);
+      blinkWithTimer(3000).catch(console.error);
     }
 
     return () => {
