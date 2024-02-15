@@ -1,21 +1,10 @@
 // Code to create a server using Oak framework with deno and handle requests from the frontend
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import { RateLimiter } from "https://deno.land/x/oak_rate_limit/mod.ts";
 import { generateLLMResponse } from "./modules/langchainHandler.ts";
 import { CharacterResponse, UserComment } from "../../types/index.d.ts";
 
 const app = new Application();
-
-// Define a whitelist of origins
-const whitelist = ["http://localhost:5173"];
-
-// Enable CORS for port 5173 on localhost using oakCors middleware
-const corsOptions = {
-  origin: whitelist,
-  optionsSuccessStatus: 200,
-  methods: "POST, OPTIONS",
-};
 
 // Set up rate limiting middleware
 const rateLimit = RateLimiter({
@@ -24,10 +13,7 @@ const rateLimit = RateLimiter({
 });
 
 // make sure to initialize middlewares before the router
-app.use(
-  oakCors(corsOptions),
-  await rateLimit,
-);
+app.use(await rateLimit);
 
 const router = new Router();
 router
