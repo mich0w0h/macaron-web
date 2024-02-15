@@ -5,14 +5,12 @@ import {
   PromptTemplate,
 } from "npm:@langchain/core/prompts";
 import { StringOutputParser } from "npm:@langchain/core/output_parsers";
-import { getEnv } from "./envConfig.ts";
 import { csvToFlatArray } from "./csvParser.ts";
 import { containsKanji } from "./characterChecker.ts";
 
 const model = new ChatOpenAI({
   modelName: "gpt-3.5-turbo",
-  openAIApiKey: getEnv().OPENAI_API_KEY,
-  maxTokens: 100,
+  maxTokens: 50,
 });
 
 const outputParser = new StringOutputParser();
