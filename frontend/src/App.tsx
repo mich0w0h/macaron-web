@@ -4,16 +4,17 @@ import CommentInput from "./components/CommentInput";
 import CommentList from "./components/CommentList";
 import SpeechBalloon from "./components/SpeechBalloon";
 import { type CharacterResponse, type UserComment } from "../../types";
-import useApi from "./hooks/useApi";
 import useSpeechBalloon from "./hooks/useSpeechBalloonVisibility";
+import callApi from "./api";
 import "./App.css";
 
 const App: React.FC = () => {
   const [userComments, setUserComments] = useState<UserComment[]>([]);
+  const [characterResponse, setCharacterResponse] = useState<CharacterResponse>(
+    { text: "" },
+  );
   const maxCommentsToShow = 3;
 
-  // custom hooks
-  const { data: characterResponse, callApi } = useApi<CharacterResponse>();
   const { isVisible, showBalloon, hideBalloon } = useSpeechBalloon();
 
   // Event handler function
@@ -22,11 +23,15 @@ const App: React.FC = () => {
     setUserComments(updatedComments.slice(-maxCommentsToShow));
 
     callApi("/api/generate", "POST", userComment)
-      .then(() => {
-        showBalloon();
+      .then((response) => {
+        setCharacterResponse(response.data as CharacterResponse);
       })
-      .catch((error: any) => {
-        console.error("Error:", error);
+      .catch((error: Error) => {
+        console.error("Error occurred while calling the API:", error);
+        setCharacterResponse({ text: "マカロン、よくわからなかった！" });
+      })
+      .finally(() => {
+        showBalloon();
       });
   };
 
@@ -34,7 +39,7 @@ const App: React.FC = () => {
     <div className="container">
       <div className="character-section">
         <SpeechBalloon
-          message={characterResponse?.text ?? ""}
+          message={characterResponse.text}
           isVisible={isVisible}
           onHide={hideBalloon}
         />
