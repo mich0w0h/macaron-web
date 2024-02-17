@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./SpeechBalloon.css";
 
 interface SpeechBalloonProps {
@@ -12,6 +12,8 @@ const SpeechBalloon: React.FC<SpeechBalloonProps> = ({
   isVisible,
   onHide,
 }) => {
+  const [fontSize, setFontSize] = useState("1vw");
+
   useEffect(() => {
     if (isVisible) {
       const hideTimeout = setTimeout(() => {
@@ -24,8 +26,23 @@ const SpeechBalloon: React.FC<SpeechBalloonProps> = ({
     }
   }, [isVisible, onHide]);
 
+  useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+    if (message.length <= 5) {
+      setFontSize(isMobile ? "5vw" : "1.1vw");
+    } else if (message.length <= 15) {
+      setFontSize(isMobile ? "4vw" : "1vw");
+    } else {
+      setFontSize(isMobile ? "3vw" : "0.9vw");
+    }
+  }, [message]);
+
   return (
-    <div className={`speech-balloon ${isVisible ? "" : "hidden"}`}>
+    <div
+      className={`speech-balloon ${isVisible ? "" : "hidden"}`}
+      style={{ fontSize }}
+    >
       {message}
     </div>
   );
