@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  frontend:
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - '5000:80'
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    environment:
+      - OPENAI_API_KEY
+    ports:
+      - '8000:8000'
+ 
