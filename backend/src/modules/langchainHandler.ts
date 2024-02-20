@@ -15,6 +15,8 @@ const model = new ChatOpenAI({
 
 const outputParser = new StringOutputParser();
 
+const characterLines = await csvToFlatArray("./data/line_examples.csv");
+
 function createPromptFromLines(
   characterLines: string[],
 ): FewShotPromptTemplate {
@@ -98,7 +100,6 @@ async function invokeFewShot(
 export async function generateLLMResponse(
   commentText: string,
 ): Promise<string> {
-  const characterLines = await csvToFlatArray("./data/line_examples.csv");
   const promptTemplate = createPromptFromLines(characterLines);
 
   let stringResult: string = await invokeFewShot(promptTemplate, {
