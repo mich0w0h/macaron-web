@@ -1,7 +1,7 @@
-# Project Name
+# Macaron web
 
-This repository contains the source code for a web application with frontend and
-backend services.
+This repository contains the source code for a web application where you can
+enjoy chatting with Macaron.
 
 ## Prerequisites
 
